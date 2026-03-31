@@ -20,8 +20,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.title('Seguimiento Presupuestal 2026 :bar_chart: ')
-df_seguimiento = pd.read_excel('https://raw.githubusercontent.com/Rich-13/seguimiento_presupuestal_unsch_streamlit/main/data/cn_mes_2025.xlsx')
-df_ejecucion = pd.read_excel('https://raw.githubusercontent.com/Rich-13/seguimiento_presupuestal_unsch_streamlit/main/data/ep_mes_2025.xlsx')
+df_seguimiento = pd.read_excel('https://raw.githubusercontent.com/Rich-13/seguimiento_presupuestal_unsch_2026/main/data/cn_mes_2026.xlsx')
+df_ejecucion = pd.read_excel('https://raw.githubusercontent.com/Rich-13/seguimiento_presupuestal_unsch_2026/main/data/ep_mes_2026.xlsx')
 df_ejecucion['tipo_clasificador'] = df_ejecucion['clasificador'].str.split(' ').str[0]
 tab_titles = [
     "EJECUCIÓN PRESUPUESTAL 2026",
