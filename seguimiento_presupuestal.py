@@ -101,8 +101,8 @@ with tabs[0]:
 }
 
     df_ejecucion['mes'] = df_ejecucion['FECHA_DEVENGADO'].dt.month_name()
-    df_ejecucion = df_ejecucion[['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM','mes','monto_nacional']]
-    df_pivot_ep = df_ejecucion.pivot_table(index=['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM'],columns='mes',values='monto_nacional',aggfunc='sum').reset_index()
+    df_ejecucion = df_ejecucion[['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM','prod_pry','mes','monto_nacional']]
+    df_pivot_ep = df_ejecucion.pivot_table(index=['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM','prod_pry'],columns='mes',values='monto_nacional',aggfunc='sum').reset_index()
     df_pivot_ep.columns.name = None
     df_pivot_ep = df_pivot_ep.fillna(0)
 
@@ -114,7 +114,7 @@ with tabs[0]:
     #st.dataframe(df_pivot_ep)
 
     columnas_mes = [month for month in month_order_es if month in df_pivot_ep.columns]
-    df_pivot_ep = df_pivot_ep[['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM'] + columnas_mes]
+    df_pivot_ep = df_pivot_ep[['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM','prod_pry'] + columnas_mes]
 
     #st.dataframe(df_pivot_ep)
 
@@ -128,7 +128,7 @@ with tabs[0]:
     #df_pivot_ep = pd.concat([fila_totales_ep, df_pivot_ep], ignore_index=True)
     df_datos_grupos_ep = []
     if agg_dict:
-        df_datos_grupos_ep = df_pivot_ep.groupby(['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM']).agg(agg_dict).reset_index()
+        df_datos_grupos_ep = df_pivot_ep.groupby(['nombre_tarea','nombre_ff','NOMBRE_CLASIF','NOMBRE_ITEM','prod_pry']).agg(agg_dict).reset_index()
 
         #df_datos_grupos_ep = df_datos_grupos_ep.sort_values('MNTO_TOTAL',ascending=False)
         gob1 = GridOptionsBuilder.from_dataframe(df_datos_grupos_ep)
@@ -174,6 +174,16 @@ with tabs[0]:
         )
         gob1.configure_column(
             field="NOMBRE_ITEM",
+            hide=True,
+            header_name="Item",
+            width=150,
+            #pinned='left',
+            rowGroup=True,
+            
+        )
+
+        gob1.configure_column(
+            field="prod_pry",
             hide=True,
             header_name="Item",
             width=150,
